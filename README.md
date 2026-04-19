@@ -84,14 +84,15 @@ Open the UI:
 ### 4. Capture ChatGPT data
 
 1. Open ChatGPT (`https://chatgpt.com` or `https://chat.openai.com`)
-2. Click the extension icon and press **Sync All Chats**
-3. Keep the ChatGPT tab open while it paginates and fetches all conversation details
-4. The extension sends data to the backend during sync
-5. Refresh `http://127.0.0.1:8000/` to view saved chats
+2. The extension auto-syncs (no scrolling needed) when the page loads, up to once per hour
+3. Or click the extension icon and press **Sync All Chats** for immediate manual sync
+4. Keep the ChatGPT tab open while it paginates and fetches all conversation details
+5. The extension sends data to the backend during sync
+6. Refresh `http://127.0.0.1:8000/` to view saved chats
 
 You can still capture incrementally by browsing chats normally; fetch interception remains active.
 
-`Sync All Chats` uses two phases: it first collects every conversation ID by pagination, then fetches each conversation detail with retries. This avoids missing older chats and stores all messages from each conversation mapping.
+`Sync All Chats` uses deep automation in addition to API paging: it auto-scrolls the history panel to force lazy chat-list loading, collects every conversation ID by pagination (active + archived), fetches details with retries, and then auto-opens each `/c/{id}` page and auto-scrolls to trigger any lazy-loading message fetches before moving to the next chat.
 
 ## API Endpoints
 

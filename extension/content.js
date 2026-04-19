@@ -20,10 +20,17 @@
       return false;
     }
 
+    const trigger = typeof message.trigger === "string" ? message.trigger : "popup";
+    const deep = message.deep !== false;
+
     window.postMessage(
       {
         source: "CHATGPT_ARCHIVER_CONTENT",
         type: "START_FULL_SYNC",
+        payload: {
+          trigger,
+          deep,
+        },
       },
       "*",
     );

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from sqlalchemy import desc, func, select
+from sqlalchemy import case, desc, func, select
 from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -20,10 +20,18 @@ async def upsert_chat(chat: ChatIn, db: AsyncSession = Depends(get_db)) -> dict[
         title=chat.title,
         created_at=chat.created_at,
     )
+
+    incoming_title = func.lower(func.trim(stmt.excluded.title))
+    title_update = case(
+        (incoming_title == "", Chat.title),
+        (incoming_title == "untitled chat", Chat.title),
+        else_=stmt.excluded.title,
+    )
+
     stmt = stmt.on_conflict_do_update(
         index_elements=[Chat.id],
         set_={
-            "title": stmt.excluded.title,
+            "title": title_update,
             "created_at": func.coalesce(stmt.excluded.created_at, Chat.created_at),
         },
     )

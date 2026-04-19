@@ -33,7 +33,11 @@ function updateFromStatusPayload(payload) {
   }
 
   if (payload.state === "started") {
-    setStatus("Sync started. Keep ChatGPT tab open.", "running");
+    if (payload.trigger === "auto") {
+      setStatus("Auto sync started. Keep ChatGPT tab open.", "running");
+    } else {
+      setStatus("Sync started. Keep ChatGPT tab open.", "running");
+    }
     setDetail("");
     return;
   }
@@ -41,7 +45,10 @@ function updateFromStatusPayload(payload) {
   if (payload.state === "progress") {
     setStatus("Sync in progress...", "running");
     if (payload.stage === "listing") {
-      setDetail(`Collecting chats: ${payload.discovered || 0} found (page ${payload.page || 1})`);
+      const modeLabel = typeof payload.mode === "string" ? payload.mode : "all";
+      setDetail(
+        `Collecting ${modeLabel} chats: ${payload.discovered || 0} found (page ${payload.page || 1})`,
+      );
       return;
     }
 
@@ -49,6 +56,32 @@ function updateFromStatusPayload(payload) {
       const total = payload.total || 0;
       setDetail(
         `Fetching details: ${payload.processed || 0}/${total} completed, failed ${payload.failed || 0}`,
+      );
+      return;
+    }
+
+    if (payload.stage === "navigating") {
+      const total = payload.total || 0;
+      setDetail(
+        `Auto-opening chats: ${payload.processed || 0}/${total} done, failed ${payload.failed || 0}`,
+      );
+      return;
+    }
+
+    if (payload.stage === "history_scroll") {
+      setDetail(`Auto-scrolling history: ${payload.discovered || 0} chats found (pass ${payload.round || 1})`);
+      return;
+    }
+
+    if (payload.stage === "history_unavailable") {
+      setDetail("History panel not found. Keeping API-based sync only.");
+      return;
+    }
+
+    if (payload.stage === "deep_capture") {
+      const total = payload.total || 0;
+      setDetail(
+        `Capturing opened chat: ${payload.processed || 0}/${total} done, failed ${payload.failed || 0}`,
       );
       return;
     }
@@ -122,7 +155,10 @@ function triggerSync() {
   setStatus("Starting sync...", "running");
   setDetail("");
 
-  chrome.tabs.sendMessage(activeTabId, { type: "START_FULL_SYNC" }, (response) => {
+  chrome.tabs.sendMessage(
+    activeTabId,
+    { type: "START_FULL_SYNC", trigger: "popup", deep: true },
+    (response) => {
     syncButtonEl.disabled = false;
 
     if (chrome.runtime.lastError) {
@@ -140,7 +176,8 @@ function triggerSync() {
     setStatus("Sync started. Keep ChatGPT tab open.", "running");
     startPolling();
     requestStatus();
-  });
+    },
+  );
 }
 
 function init() {
