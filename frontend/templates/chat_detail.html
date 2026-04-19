@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Detail</title>
+    <link rel="stylesheet" href="/static/app.css" />
+    <script>
+      window.__CHAT_ID__ = "{{ chat_id | e }}";
+    </script>
+    <script src="/static/chat-detail.js" defer></script>
+  </head>
+  <body>
+    <div class="page-glow"></div>
+    <main class="page-shell detail-shell">
+      <header class="detail-header">
+        <a href="/" class="back-link">Back to list</a>
+        <button id="exportBtn" class="export-btn" type="button">Export JSON</button>
+      </header>
+
+      <section class="panel">
+        <div class="panel-head panel-head-stack">
+          <h1 id="chatTitle">Loading conversation...</h1>
+          <p id="chatMeta"></p>
+        </div>
+        <div id="conversation" class="conversation"></div>
+      </section>
+    </main>
+  </body>
+</html>

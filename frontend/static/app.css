@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap");
+
+:root {
+  --bg-a: #f6f2e7;
+  --bg-b: #dcecf8;
+  --ink: #1e2530;
+  --ink-soft: #5e6773;
+  --card: #fffdf8;
+  --accent: #0a7b78;
+  --accent-strong: #055f5d;
+  --warm: #e46f4d;
+  --border: #ccd4de;
+  --shadow: 0 24px 40px rgba(13, 26, 39, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(228, 111, 77, 0.14), transparent 35%),
+    radial-gradient(circle at 88% 12%, rgba(10, 123, 120, 0.18), transparent 30%),
+    linear-gradient(160deg, var(--bg-a), var(--bg-b));
+}
+
+.page-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.25) 15%, transparent 15%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 65%, transparent 65%, transparent 100%);
+  background-size: 64px 64px;
+  opacity: 0.18;
+}
+
+.page-shell {
+  width: min(980px, 92vw);
+  margin: 3.5rem auto;
+  position: relative;
+  z-index: 1;
+  animation: rise-in 420ms ease;
+}
+
+.detail-shell {
+  width: min(1050px, 94vw);
+}
+
+.hero {
+  margin-bottom: 1.2rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-weight: 700;
+  color: var(--accent-strong);
+  margin: 0 0 0.4rem;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 3vw, 2.65rem);
+}
+
+.hero-copy {
+  margin-top: 0.65rem;
+  color: var(--ink-soft);
+  max-width: 64ch;
+}
+
+.panel {
+  background: color-mix(in srgb, var(--card) 92%, #ffffff 8%);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.panel-head-stack {
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.panel-head p {
+  color: var(--ink-soft);
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 0.87rem;
+}
+
+.search-label {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.45rem;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.78rem 0.9rem;
+  font: inherit;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(10, 123, 120, 0.12);
+}
+
+.chat-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.chat-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.chat-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--border) 52%);
+  box-shadow: 0 12px 18px rgba(13, 26, 39, 0.12);
+}
+
+.chat-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.chat-meta {
+  color: var(--ink-soft);
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 0.8rem;
+}
+
+.chat-stats {
+  min-width: 160px;
+  text-align: right;
+  display: grid;
+  align-content: center;
+  gap: 0.2rem;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.95rem;
+}
+
+.back-link {
+  text-decoration: none;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.export-btn {
+  border: 1px solid color-mix(in srgb, var(--warm) 70%, black 10%);
+  color: #43180f;
+  background: color-mix(in srgb, var(--warm) 24%, white 76%);
+  border-radius: 11px;
+  padding: 0.6rem 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  filter: brightness(0.98);
+}
+
+.conversation {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.message {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.8rem 0.9rem;
+  background: #fff;
+}
+
+.message--assistant {
+  background: color-mix(in srgb, var(--accent) 10%, white 90%);
+}
+
+.message--user {
+  background: color-mix(in srgb, var(--warm) 12%, white 88%);
+}
+
+.message-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.message-content {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.empty-state,
+.error-state {
+  margin: 0;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  color: var(--ink-soft);
+}
+
+.error-state {
+  border-color: color-mix(in srgb, #a42222 55%, var(--border) 45%);
+  color: #7a1616;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .page-shell {
+    margin: 1.2rem auto;
+  }
+
+  .panel {
+    padding: 0.95rem;
+  }
+
+  .chat-card {
+    flex-direction: column;
+  }
+
+  .chat-stats {
+    text-align: left;
+    min-width: auto;
+  }
+
+  .detail-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}

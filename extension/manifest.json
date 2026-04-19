@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Conversation Bridge",
+  "version": "1.0.0",
+  "description": "Captures ChatGPT API responses and syncs them to a local FastAPI backend.",
+  "permissions": [
+    "tabs"
+  ],
+  "action": {
+    "default_title": "ChatGPT Conversation Bridge",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "injected.js"
+      ],
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*"
+      ]
+    }
+  ]
+}

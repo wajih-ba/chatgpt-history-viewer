@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatGPT Archive</title>
+    <link rel="stylesheet" href="/static/app.css" />
+    <script src="/static/chats.js" defer></script>
+  </head>
+  <body>
+    <div class="page-glow"></div>
+    <main class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Local Conversation Archive</p>
+        <h1>ChatGPT Chat Library</h1>
+        <p class="hero-copy">
+          Captured conversations from your extension are indexed in SQLite and surfaced here.
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>All Chats</h2>
+          <p id="statusText">Loading chats...</p>
+        </div>
+        <label class="search-label" for="searchInput">Search by title</label>
+        <input
+          id="searchInput"
+          class="search-input"
+          type="search"
+          placeholder="Type to filter conversations"
+          autocomplete="off"
+        />
+        <div id="chatList" class="chat-list"></div>
+      </section>
+    </main>
+  </body>
+</html>

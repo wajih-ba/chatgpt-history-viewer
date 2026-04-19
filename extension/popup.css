@@ -1,0 +1,63 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  width: 280px;
+  background: #f8fafc;
+  color: #17212b;
+}
+
+.popup {
+  padding: 14px;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.status {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.status.status--error {
+  color: #9d1c1c;
+}
+
+.status.status--running {
+  color: #0d5f74;
+}
+
+.status.status--success {
+  color: #0b6f3b;
+}
+
+.detail {
+  min-height: 18px;
+  margin: 8px 0 12px;
+  font-size: 12px;
+  color: #495463;
+}
+
+button {
+  width: 100%;
+  border: 1px solid #0b6f3b;
+  border-radius: 8px;
+  background: #0f8f4b;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
